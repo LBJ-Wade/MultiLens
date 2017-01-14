@@ -1,0 +1,611 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MultiLens.Profiles package &mdash; multiLens 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="multiLens 0.1.0 documentation" href="index.html" />
+    <link rel="up" title="MultiLens package" href="MultiLens.html" />
+    <link rel="next" title="MultiLens.Utils package" href="MultiLens.Utils.html" />
+    <link rel="prev" title="MultiLens.Cosmo package" href="MultiLens.Cosmo.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="MultiLens.Utils.html" title="MultiLens.Utils package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="MultiLens.Cosmo.html" title="MultiLens.Cosmo package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">multiLens 0.1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="MultiLens.html" accesskey="U">MultiLens package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="multilens-profiles-package">
+<h1>MultiLens.Profiles package<a class="headerlink" href="#multilens-profiles-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-MultiLens.Profiles.SIS">
+<span id="multilens-profiles-sis-module"></span><h2>MultiLens.Profiles.SIS module<a class="headerlink" href="#module-MultiLens.Profiles.SIS" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="MultiLens.Profiles.SIS.SIS">
+<em class="property">class </em><code class="descclassname">MultiLens.Profiles.SIS.</code><code class="descname">SIS</code><a class="reference internal" href="_modules/MultiLens/Profiles/SIS.html#SIS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.SIS.SIS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>this class contains the function and the derivatives of the Singular Isothermal Sphere in Physical coordinates</p>
+<dl class="method">
+<dt id="MultiLens.Profiles.SIS.SIS.all">
+<code class="descname">all</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>phi_E_sis</em>, <em>center_x_sis=0</em>, <em>center_y_sis=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/SIS.html#SIS.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.SIS.SIS.all" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns f,f_x,f_y,f_xx, f_yy, f_xy</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.SIS.SIS.derivatives">
+<code class="descname">derivatives</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>phi_E_sis</em>, <em>center_x_sis=0</em>, <em>center_y_sis=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/SIS.html#SIS.derivatives"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.SIS.SIS.derivatives" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns df/dx and df/dy of the function</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.SIS.SIS.function">
+<code class="descname">function</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>phi_E_sis</em>, <em>center_x_sis=0</em>, <em>center_y_sis=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/SIS.html#SIS.function"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.SIS.SIS.function" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.SIS.SIS.hessian">
+<code class="descname">hessian</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>phi_E_sis</em>, <em>center_x_sis=0</em>, <em>center_y_sis=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/SIS.html#SIS.hessian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.SIS.SIS.hessian" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns Hessian matrix of function d^2f/dx^2, d^f/dy^2, d^2/dxdy</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-MultiLens.Profiles.gaussian">
+<span id="multilens-profiles-gaussian-module"></span><h2>MultiLens.Profiles.gaussian module<a class="headerlink" href="#module-MultiLens.Profiles.gaussian" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="MultiLens.Profiles.gaussian.Gaussian">
+<em class="property">class </em><code class="descclassname">MultiLens.Profiles.gaussian.</code><code class="descname">Gaussian</code><a class="reference internal" href="_modules/MultiLens/Profiles/gaussian.html#Gaussian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.gaussian.Gaussian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>this class contains functions to evaluate a Gaussian function and calculates its derivative and hessian matrix</p>
+<dl class="method">
+<dt id="MultiLens.Profiles.gaussian.Gaussian.all">
+<code class="descname">all</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>amp</em>, <em>sigma_x</em>, <em>sigma_y</em>, <em>center_x=0</em>, <em>center_y=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/gaussian.html#Gaussian.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.gaussian.Gaussian.all" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns f,f_x,f_y,f_xx, f_yy, f_xy</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.gaussian.Gaussian.derivatives">
+<code class="descname">derivatives</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>amp</em>, <em>sigma_x</em>, <em>sigma_y</em>, <em>center_x=0</em>, <em>center_y=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/gaussian.html#Gaussian.derivatives"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.gaussian.Gaussian.derivatives" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns df/dx and df/dy of the function</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.gaussian.Gaussian.function">
+<code class="descname">function</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>amp</em>, <em>sigma_x</em>, <em>sigma_y</em>, <em>center_x</em>, <em>center_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/gaussian.html#Gaussian.function"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.gaussian.Gaussian.function" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns Gaussian</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.gaussian.Gaussian.hessian">
+<code class="descname">hessian</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>amp</em>, <em>sigma_x</em>, <em>sigma_y</em>, <em>center_x=0</em>, <em>center_y=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/gaussian.html#Gaussian.hessian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.gaussian.Gaussian.hessian" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns Hessian matrix of function d^2f/dx^2, d^f/dy^2, d^2/dxdy</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-MultiLens.Profiles.nfw">
+<span id="multilens-profiles-nfw-module"></span><h2>MultiLens.Profiles.nfw module<a class="headerlink" href="#module-MultiLens.Profiles.nfw" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="MultiLens.Profiles.nfw.HaloParam">
+<em class="property">class </em><code class="descclassname">MultiLens.Profiles.nfw.</code><code class="descname">HaloParam</code><a class="reference internal" href="_modules/MultiLens/Profiles/nfw.html#HaloParam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.nfw.HaloParam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>class which contains a halo model parameters dependent on cosmology for NFW profile
+all distances are given in comoving coordinates</p>
+<dl class="method">
+<dt id="MultiLens.Profiles.nfw.HaloParam.M200">
+<code class="descname">M200</code><span class="sig-paren">(</span><em>Rs</em>, <em>rho0</em>, <em>c</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/nfw.html#HaloParam.M200"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.nfw.HaloParam.M200" title="Permalink to this definition">¶</a></dt>
+<dd><p>M(R_200) calculation for NFW profile</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>Rs</strong> (<em>float</em>) &#8211; scale radius</li>
+<li><strong>rho0</strong> (<em>float</em>) &#8211; density normalization (characteristic density)</li>
+<li><strong>c</strong> (<em>float [4,40]</em>) &#8211; consentration</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">M(R_200) density</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.nfw.HaloParam.c_M_z">
+<code class="descname">c_M_z</code><span class="sig-paren">(</span><em>M</em>, <em>z</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/nfw.html#HaloParam.c_M_z"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.nfw.HaloParam.c_M_z" title="Permalink to this definition">¶</a></dt>
+<dd><p>fitting function of <a class="reference external" href="http://moriond.in2p3.fr/J08/proceedings/duffy.pdf">http://moriond.in2p3.fr/J08/proceedings/duffy.pdf</a> for the mass and redshift dependence of the concentration parameter</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>M</strong> (<em>float or numpy array</em>) &#8211; halo mass in M_sun/h</li>
+<li><strong>z</strong> (<em>float &gt;0</em>) &#8211; redshift</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">concentration parameter as float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.nfw.HaloParam.profileMain">
+<code class="descname">profileMain</code><span class="sig-paren">(</span><em>M</em>, <em>z</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/nfw.html#HaloParam.profileMain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.nfw.HaloParam.profileMain" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns all needed parameter to draw the profile of the main halo</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.nfw.HaloParam.r200_M">
+<code class="descname">r200_M</code><span class="sig-paren">(</span><em>M</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/nfw.html#HaloParam.r200_M"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.nfw.HaloParam.r200_M" title="Permalink to this definition">¶</a></dt>
+<dd><p>computes the radius R_200 of a halo of mass M in comoving distances</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>M</strong> (<em>float or numpy array</em>) &#8211; halo mass in M_sun/h</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">radius R_200 in comoving Mpc/h</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.nfw.HaloParam.rho0_c">
+<code class="descname">rho0_c</code><span class="sig-paren">(</span><em>c</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/nfw.html#HaloParam.rho0_c"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.nfw.HaloParam.rho0_c" title="Permalink to this definition">¶</a></dt>
+<dd><p>computes density normalization as a functio of concentration parameter
+:return: density normalization in h^2/Mpc^3 (comoving)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="MultiLens.Profiles.nfw.HaloParam.rhoc">
+<code class="descname">rhoc</code><em class="property"> = 277536627000.0</em><a class="headerlink" href="#MultiLens.Profiles.nfw.HaloParam.rhoc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="MultiLens.Profiles.nfw.NFW">
+<em class="property">class </em><code class="descclassname">MultiLens.Profiles.nfw.</code><code class="descname">NFW</code><a class="reference internal" href="_modules/MultiLens/Profiles/nfw.html#NFW"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.nfw.NFW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>this class contains functions concerning the NFW profile</p>
+<p>relation are: R_200 = c * Rs</p>
+<dl class="method">
+<dt id="MultiLens.Profiles.nfw.NFW.F">
+<code class="descname">F</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/nfw.html#NFW.F"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.nfw.NFW.F" title="Permalink to this definition">¶</a></dt>
+<dd><p>analytic solution of the projection integral</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> (<em>float &gt;0</em>) &#8211; R/Rs</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.nfw.NFW.all">
+<code class="descname">all</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>Rs</em>, <em>rho0</em>, <em>r200=100</em>, <em>center_x_nfw=0</em>, <em>center_y_nfw=0</em>, <em>angle=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/nfw.html#NFW.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.nfw.NFW.all" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns f,f_x,f_y,f_xx, f_yy, f_xy</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.nfw.NFW.alpha2rho0">
+<code class="descname">alpha2rho0</code><span class="sig-paren">(</span><em>phi_E</em>, <em>Rs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/nfw.html#NFW.alpha2rho0"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.nfw.NFW.alpha2rho0" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert angle at Rs into rho0</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.nfw.NFW.derivatives">
+<code class="descname">derivatives</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>Rs</em>, <em>rho0</em>, <em>r200=100</em>, <em>center_x_nfw=0</em>, <em>center_y_nfw=0</em>, <em>angle=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/nfw.html#NFW.derivatives"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.nfw.NFW.derivatives" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns df/dx and df/dy of the function (integral of NFW)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.nfw.NFW.function">
+<code class="descname">function</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>Rs</em>, <em>rho0</em>, <em>r200=100</em>, <em>center_x_nfw=0</em>, <em>center_y_nfw=0</em>, <em>angle=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/nfw.html#NFW.function"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.nfw.NFW.function" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns double integral of NFW profile</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.nfw.NFW.g">
+<code class="descname">g</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/nfw.html#NFW.g"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.nfw.NFW.g" title="Permalink to this definition">¶</a></dt>
+<dd><p>analytic solution of integral for NFW profile to compute deflection angel and gamma</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> (<em>float &gt;0</em>) &#8211; R/Rs</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.nfw.NFW.h">
+<code class="descname">h</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/nfw.html#NFW.h"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.nfw.NFW.h" title="Permalink to this definition">¶</a></dt>
+<dd><p>analytic solution of integral for NFW profile to compute the potential</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> (<em>float &gt;0</em>) &#8211; R/Rs</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.nfw.NFW.hessian">
+<code class="descname">hessian</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>Rs</em>, <em>rho0</em>, <em>r200=100</em>, <em>center_x_nfw=0</em>, <em>center_y_nfw=0</em>, <em>angle=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/nfw.html#NFW.hessian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.nfw.NFW.hessian" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns Hessian matrix of function d^2f/dx^2, d^f/dy^2, d^2/dxdy</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.nfw.NFW.nfw2D">
+<code class="descname">nfw2D</code><span class="sig-paren">(</span><em>R</em>, <em>Rs</em>, <em>rho0</em>, <em>r200=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/nfw.html#NFW.nfw2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.nfw.NFW.nfw2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>projected two dimenstional NFW profile (kappa*Sigma_crit)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>R</strong> (<em>float/numpy array</em>) &#8211; radius of interest</li>
+<li><strong>Rs</strong> (<em>float</em>) &#8211; scale radius</li>
+<li><strong>rho0</strong> (<em>float</em>) &#8211; density normalization (characteristic density)</li>
+<li><strong>r200</strong> (<em>float&gt;0</em>) &#8211; radius of (sub)halo</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Epsilon(R) projected density at radius R</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.nfw.NFW.nfw2D_smoothed">
+<code class="descname">nfw2D_smoothed</code><span class="sig-paren">(</span><em>R</em>, <em>Rs</em>, <em>rho0</em>, <em>r200</em>, <em>pixscale</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/nfw.html#NFW.nfw2D_smoothed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.nfw.NFW.nfw2D_smoothed" title="Permalink to this definition">¶</a></dt>
+<dd><p>projected two dimenstional NFW profile with smoothing around the pixel scale
+this routine is ment to better compare outputs to N-body simulations (not ment ot do lensemodelling with it)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>R</strong> (<em>float/numpy array</em>) &#8211; radius of interest</li>
+<li><strong>Rs</strong> (<em>float</em>) &#8211; scale radius</li>
+<li><strong>rho0</strong> (<em>float</em>) &#8211; density normalization (characteristic density)</li>
+<li><strong>r200</strong> (<em>float&gt;0</em>) &#8211; radius of (sub)halo</li>
+<li><strong>pixscale</strong> (<em>float&gt;0</em>) &#8211; pixel scale (same units as R,Rs)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Epsilon(R) projected density at radius R</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.nfw.NFW.nfw3D">
+<code class="descname">nfw3D</code><span class="sig-paren">(</span><em>R</em>, <em>Rs</em>, <em>rho0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/nfw.html#NFW.nfw3D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.nfw.NFW.nfw3D" title="Permalink to this definition">¶</a></dt>
+<dd><p>three dimenstional NFW profile</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>R</strong> (<em>float/numpy array</em>) &#8211; radius of interest</li>
+<li><strong>Rs</strong> (<em>float</em>) &#8211; scale radius</li>
+<li><strong>rho0</strong> (<em>float</em>) &#8211; density normalization (characteristic density)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">rho(R) density</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.nfw.NFW.nfwAlpha">
+<code class="descname">nfwAlpha</code><span class="sig-paren">(</span><em>R</em>, <em>Rs</em>, <em>rho0</em>, <em>r200</em>, <em>ax_x</em>, <em>ax_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/nfw.html#NFW.nfwAlpha"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.nfw.NFW.nfwAlpha" title="Permalink to this definition">¶</a></dt>
+<dd><p>deflection angel of NFW profile (<a href="#id1"><span class="problematic" id="id2">*</span></a>Sigma_crit*D_OL) along the projection to coordinate &#8220;axis&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>R</strong> (<em>float/numpy array</em>) &#8211; radius of interest</li>
+<li><strong>Rs</strong> (<em>float</em>) &#8211; scale radius</li>
+<li><strong>rho0</strong> (<em>float</em>) &#8211; density normalization (characteristic density)</li>
+<li><strong>r200</strong> (<em>float&gt;0</em>) &#8211; radius of (sub)halo</li>
+<li><strong>axis</strong> (<em>same as R</em>) &#8211; projection to either x- or y-axis</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Epsilon(R) projected density at radius R</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.nfw.NFW.nfwGamma">
+<code class="descname">nfwGamma</code><span class="sig-paren">(</span><em>R</em>, <em>Rs</em>, <em>rho0</em>, <em>r200</em>, <em>ax_x</em>, <em>ax_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/nfw.html#NFW.nfwGamma"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.nfw.NFW.nfwGamma" title="Permalink to this definition">¶</a></dt>
+<dd><p>shear gamma of NFW profile (<a href="#id3"><span class="problematic" id="id4">*</span></a>Sigma_crit) along the projection to coordinate &#8220;axis&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>R</strong> (<em>float/numpy array</em>) &#8211; radius of interest</li>
+<li><strong>Rs</strong> (<em>float</em>) &#8211; scale radius</li>
+<li><strong>rho0</strong> (<em>float</em>) &#8211; density normalization (characteristic density)</li>
+<li><strong>r200</strong> (<em>float&gt;0</em>) &#8211; radius of (sub)halo</li>
+<li><strong>axis</strong> (<em>same as R</em>) &#8211; projection to either x- or y-axis</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Epsilon(R) projected density at radius R</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.nfw.NFW.nfwPot">
+<code class="descname">nfwPot</code><span class="sig-paren">(</span><em>R</em>, <em>Rs</em>, <em>rho0</em>, <em>r200=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/nfw.html#NFW.nfwPot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.nfw.NFW.nfwPot" title="Permalink to this definition">¶</a></dt>
+<dd><p>lensing potential of NFW profile (<a href="#id5"><span class="problematic" id="id6">*</span></a>Sigma_crit*D_OL**2)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>R</strong> (<em>float/numpy array</em>) &#8211; radius of interest</li>
+<li><strong>Rs</strong> (<em>float</em>) &#8211; scale radius</li>
+<li><strong>rho0</strong> (<em>float</em>) &#8211; density normalization (characteristic density)</li>
+<li><strong>r200</strong> (<em>float&gt;0</em>) &#8211; radius of (sub)halo</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Epsilon(R) projected density at radius R</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-MultiLens.Profiles.point_mass">
+<span id="multilens-profiles-point-mass-module"></span><h2>MultiLens.Profiles.point_mass module<a class="headerlink" href="#module-MultiLens.Profiles.point_mass" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="MultiLens.Profiles.point_mass.PointMass">
+<em class="property">class </em><code class="descclassname">MultiLens.Profiles.point_mass.</code><code class="descname">PointMass</code><a class="reference internal" href="_modules/MultiLens/Profiles/point_mass.html#PointMass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.point_mass.PointMass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>class to compute the physical deflection angle of a point mass</p>
+<dl class="method">
+<dt id="MultiLens.Profiles.point_mass.PointMass.all">
+<code class="descname">all</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>mass</em>, <em>pos_x=0</em>, <em>pos_y=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/point_mass.html#PointMass.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.point_mass.PointMass.all" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> &#8211; x-coord (in physical Mpc)</li>
+<li><strong>y</strong> &#8211; y-coord (in physical Mpc)</li>
+<li><strong>mass</strong> &#8211; mass of the point mass (in M_sun)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">returns all (in radian)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.point_mass.PointMass.derivative">
+<code class="descname">derivative</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>mass</em>, <em>pos_x=0</em>, <em>pos_y=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/point_mass.html#PointMass.derivative"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.point_mass.PointMass.derivative" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> &#8211; x-coord (in physical Mpc)</li>
+<li><strong>y</strong> &#8211; y-coord (in physical Mpc)</li>
+<li><strong>mass</strong> &#8211; mass of the point mass (in M_sun)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">deflection angle (in radian)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.point_mass.PointMass.function">
+<code class="descname">function</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>mass</em>, <em>pos_x=0</em>, <em>pos_y=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/point_mass.html#PointMass.function"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.point_mass.PointMass.function" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> &#8211; x-coord (in physical Mpc)</li>
+<li><strong>y</strong> &#8211; y-coord (in physical Mpc)</li>
+<li><strong>mass</strong> &#8211; mass of the point mass (in M_sun)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">potential</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.Profiles.point_mass.PointMass.hessian">
+<code class="descname">hessian</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>mass</em>, <em>pos_x=0</em>, <em>pos_y=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/Profiles/point_mass.html#PointMass.hessian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.Profiles.point_mass.PointMass.hessian" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> &#8211; x-coord (in physical Mpc)</li>
+<li><strong>y</strong> &#8211; y-coord (in physical Mpc)</li>
+<li><strong>mass</strong> &#8211; mass of the point mass (in M_sun)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">hessian matrix (in radian)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-MultiLens.Profiles">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-MultiLens.Profiles" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">MultiLens.Profiles package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-MultiLens.Profiles.SIS">MultiLens.Profiles.SIS module</a></li>
+<li><a class="reference internal" href="#module-MultiLens.Profiles.gaussian">MultiLens.Profiles.gaussian module</a></li>
+<li><a class="reference internal" href="#module-MultiLens.Profiles.nfw">MultiLens.Profiles.nfw module</a></li>
+<li><a class="reference internal" href="#module-MultiLens.Profiles.point_mass">MultiLens.Profiles.point_mass module</a></li>
+<li><a class="reference internal" href="#module-MultiLens.Profiles">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="MultiLens.Cosmo.html"
+                        title="previous chapter">MultiLens.Cosmo package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="MultiLens.Utils.html"
+                        title="next chapter">MultiLens.Utils package</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/MultiLens.Profiles.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="MultiLens.Utils.html" title="MultiLens.Utils package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="MultiLens.Cosmo.html" title="MultiLens.Cosmo package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">multiLens 0.1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="MultiLens.html" >MultiLens package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, ETH Zurich, Institute for Astronomy.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MultiLens.Profiles.nfw &mdash; multiLens 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="multiLens 0.1.0 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">multiLens 0.1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for MultiLens.Profiles.nfw</h1><div class="highlight"><pre>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s">&#39;sibirrer&#39;</span>
+
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<div class="viewcode-block" id="NFW"><a class="viewcode-back" href="../../../MultiLens.Profiles.html#MultiLens.Profiles.nfw.NFW">[docs]</a><span class="k">class</span> <span class="nc">NFW</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    this class contains functions concerning the NFW profile</span>
+
+<span class="sd">    relation are: R_200 = c * Rs</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="NFW.function"><a class="viewcode-back" href="../../../MultiLens.Profiles.html#MultiLens.Profiles.nfw.NFW.function">[docs]</a>    <span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span> <span class="n">rho0</span><span class="p">,</span> <span class="n">r200</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">center_x_nfw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">center_y_nfw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns double integral of NFW profile</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">angle</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="n">rho0_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha2rho0</span><span class="p">(</span><span class="n">phi_E</span><span class="o">=</span><span class="n">rho0</span><span class="p">,</span> <span class="n">Rs</span><span class="o">=</span><span class="n">Rs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rho0_input</span> <span class="o">=</span> <span class="n">rho0</span>
+        <span class="k">if</span> <span class="n">Rs</span> <span class="o">&lt;</span> <span class="mf">0.0001</span><span class="p">:</span>
+            <span class="n">Rs</span> <span class="o">=</span> <span class="mf">0.0001</span>
+        <span class="n">x_</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">center_x_nfw</span>
+        <span class="n">y_</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">center_y_nfw</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x_</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y_</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">f_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nfwPot</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span> <span class="n">rho0_input</span><span class="p">,</span> <span class="n">r200</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">f_</span>
+</div>
+<div class="viewcode-block" id="NFW.derivatives"><a class="viewcode-back" href="../../../MultiLens.Profiles.html#MultiLens.Profiles.nfw.NFW.derivatives">[docs]</a>    <span class="k">def</span> <span class="nf">derivatives</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span> <span class="n">rho0</span><span class="p">,</span> <span class="n">r200</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">center_x_nfw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">center_y_nfw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns df/dx and df/dy of the function (integral of NFW)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">angle</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="n">rho0_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha2rho0</span><span class="p">(</span><span class="n">phi_E</span><span class="o">=</span><span class="n">rho0</span><span class="p">,</span> <span class="n">Rs</span><span class="o">=</span><span class="n">Rs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rho0_input</span> <span class="o">=</span> <span class="n">rho0</span>
+        <span class="k">if</span> <span class="n">Rs</span> <span class="o">&lt;</span> <span class="mf">0.0001</span><span class="p">:</span>
+            <span class="n">Rs</span> <span class="o">=</span> <span class="mf">0.0001</span>
+        <span class="n">x_</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">center_x_nfw</span>
+        <span class="n">y_</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">center_y_nfw</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x_</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y_</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">f_x</span><span class="p">,</span> <span class="n">f_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nfwAlpha</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span> <span class="n">rho0_input</span><span class="p">,</span> <span class="n">r200</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="n">y_</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">f_x</span><span class="p">,</span> <span class="n">f_y</span>
+</div>
+<div class="viewcode-block" id="NFW.hessian"><a class="viewcode-back" href="../../../MultiLens.Profiles.html#MultiLens.Profiles.nfw.NFW.hessian">[docs]</a>    <span class="k">def</span> <span class="nf">hessian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span> <span class="n">rho0</span><span class="p">,</span> <span class="n">r200</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">center_x_nfw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">center_y_nfw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns Hessian matrix of function d^2f/dx^2, d^f/dy^2, d^2/dxdy</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">angle</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="n">rho0_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha2rho0</span><span class="p">(</span><span class="n">phi_E</span><span class="o">=</span><span class="n">rho0</span><span class="p">,</span> <span class="n">Rs</span><span class="o">=</span><span class="n">Rs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rho0_input</span> <span class="o">=</span> <span class="n">rho0</span>
+        <span class="k">if</span> <span class="n">Rs</span> <span class="o">&lt;</span> <span class="mf">0.0001</span><span class="p">:</span>
+            <span class="n">Rs</span> <span class="o">=</span> <span class="mf">0.0001</span>
+        <span class="n">x_</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">center_x_nfw</span>
+        <span class="n">y_</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">center_y_nfw</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x_</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y_</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">kappa</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nfw2D</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span> <span class="n">rho0_input</span><span class="p">,</span> <span class="n">r200</span><span class="p">)</span>
+        <span class="n">gamma1</span><span class="p">,</span> <span class="n">gamma2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nfwGamma</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span> <span class="n">rho0_input</span><span class="p">,</span> <span class="n">r200</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="n">y_</span><span class="p">)</span>
+        <span class="n">f_xx</span> <span class="o">=</span> <span class="n">kappa</span> <span class="o">+</span> <span class="n">gamma1</span>
+        <span class="n">f_yy</span> <span class="o">=</span> <span class="n">kappa</span> <span class="o">-</span> <span class="n">gamma1</span>
+        <span class="n">f_xy</span> <span class="o">=</span> <span class="n">gamma2</span>
+        <span class="k">return</span> <span class="n">f_xx</span><span class="p">,</span> <span class="n">f_yy</span><span class="p">,</span> <span class="n">f_xy</span>
+</div>
+<div class="viewcode-block" id="NFW.all"><a class="viewcode-back" href="../../../MultiLens.Profiles.html#MultiLens.Profiles.nfw.NFW.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span> <span class="n">rho0</span><span class="p">,</span> <span class="n">r200</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">center_x_nfw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">center_y_nfw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns f,f_x,f_y,f_xx, f_yy, f_xy</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">angle</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="n">rho0_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha2rho0</span><span class="p">(</span><span class="n">phi_E</span><span class="o">=</span><span class="n">rho0</span><span class="p">,</span> <span class="n">Rs</span><span class="o">=</span><span class="n">Rs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rho0_input</span> <span class="o">=</span> <span class="n">rho0</span>
+        <span class="k">if</span> <span class="n">Rs</span> <span class="o">&lt;</span> <span class="mf">0.0001</span><span class="p">:</span>
+            <span class="n">Rs</span> <span class="o">=</span> <span class="mf">0.0001</span>
+        <span class="n">x_</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">center_x_nfw</span>
+        <span class="n">y_</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">center_y_nfw</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x_</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y_</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">f_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nfwPot</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span> <span class="n">rho0_input</span><span class="p">,</span> <span class="n">r200</span><span class="p">)</span>
+        <span class="n">f_x</span><span class="p">,</span> <span class="n">f_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nfwAlpha</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span> <span class="n">rho0_input</span><span class="p">,</span> <span class="n">r200</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="n">y_</span><span class="p">)</span>
+        <span class="n">kappa</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nfw2D</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span> <span class="n">rho0_input</span><span class="p">,</span> <span class="n">r200</span><span class="p">)</span>
+        <span class="n">gamma1</span><span class="p">,</span> <span class="n">gamma2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nfwGamma</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span> <span class="n">rho0_input</span><span class="p">,</span> <span class="n">r200</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="n">y_</span><span class="p">)</span>
+        <span class="n">f_xx</span> <span class="o">=</span> <span class="n">kappa</span> <span class="o">+</span> <span class="n">gamma1</span>
+        <span class="n">f_yy</span> <span class="o">=</span> <span class="n">kappa</span> <span class="o">-</span> <span class="n">gamma1</span>
+        <span class="n">f_xy</span> <span class="o">=</span> <span class="n">gamma2</span>
+        <span class="k">return</span> <span class="n">f_</span><span class="p">,</span> <span class="n">f_x</span><span class="p">,</span> <span class="n">f_y</span><span class="p">,</span> <span class="n">f_xx</span><span class="p">,</span> <span class="n">f_yy</span><span class="p">,</span> <span class="n">f_xy</span>
+</div>
+<div class="viewcode-block" id="NFW.nfw3D"><a class="viewcode-back" href="../../../MultiLens.Profiles.html#MultiLens.Profiles.nfw.NFW.nfw3D">[docs]</a>    <span class="k">def</span> <span class="nf">nfw3D</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">R</span><span class="p">,</span><span class="n">Rs</span><span class="p">,</span><span class="n">rho0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        three dimenstional NFW profile</span>
+
+<span class="sd">        :param R: radius of interest</span>
+<span class="sd">        :type R: float/numpy array</span>
+<span class="sd">        :param Rs: scale radius</span>
+<span class="sd">        :type Rs: float</span>
+<span class="sd">        :param rho0: density normalization (characteristic density)</span>
+<span class="sd">        :type rho0: float</span>
+<span class="sd">        :return: rho(R) density</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">rho0</span><span class="o">/</span><span class="p">(</span><span class="n">R</span><span class="o">/</span><span class="n">Rs</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">R</span><span class="o">/</span><span class="n">Rs</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="NFW.nfw2D"><a class="viewcode-back" href="../../../MultiLens.Profiles.html#MultiLens.Profiles.nfw.NFW.nfw2D">[docs]</a>    <span class="k">def</span> <span class="nf">nfw2D</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">R</span><span class="p">,</span><span class="n">Rs</span><span class="p">,</span><span class="n">rho0</span><span class="p">,</span><span class="n">r200</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        projected two dimenstional NFW profile (kappa*Sigma_crit)</span>
+
+<span class="sd">        :param R: radius of interest</span>
+<span class="sd">        :type R: float/numpy array</span>
+<span class="sd">        :param Rs: scale radius</span>
+<span class="sd">        :type Rs: float</span>
+<span class="sd">        :param rho0: density normalization (characteristic density)</span>
+<span class="sd">        :type rho0: float</span>
+<span class="sd">        :param r200: radius of (sub)halo</span>
+<span class="sd">        :type r200: float&gt;0</span>
+<span class="sd">        :return: Epsilon(R) projected density at radius R</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">R</span><span class="o">/</span><span class="n">Rs</span>
+        <span class="n">Fx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">rho0</span><span class="o">*</span><span class="n">Rs</span><span class="o">*</span><span class="n">Fx</span>
+</div>
+<div class="viewcode-block" id="NFW.nfw2D_smoothed"><a class="viewcode-back" href="../../../MultiLens.Profiles.html#MultiLens.Profiles.nfw.NFW.nfw2D_smoothed">[docs]</a>    <span class="k">def</span> <span class="nf">nfw2D_smoothed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span> <span class="n">rho0</span><span class="p">,</span> <span class="n">r200</span><span class="p">,</span> <span class="n">pixscale</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        projected two dimenstional NFW profile with smoothing around the pixel scale</span>
+<span class="sd">        this routine is ment to better compare outputs to N-body simulations (not ment ot do lensemodelling with it)</span>
+
+<span class="sd">        :param R: radius of interest</span>
+<span class="sd">        :type R: float/numpy array</span>
+<span class="sd">        :param Rs: scale radius</span>
+<span class="sd">        :type Rs: float</span>
+<span class="sd">        :param rho0: density normalization (characteristic density)</span>
+<span class="sd">        :type rho0: float</span>
+<span class="sd">        :param r200: radius of (sub)halo</span>
+<span class="sd">        :type r200: float&gt;0</span>
+<span class="sd">        :param pixscale: pixel scale (same units as R,Rs)</span>
+<span class="sd">        :type pixscale: float&gt;0</span>
+<span class="sd">        :return: Epsilon(R) projected density at radius R</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">R</span><span class="o">/</span><span class="n">Rs</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">pixscale</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">Rs</span><span class="p">)</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x_</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">d</span><span class="p">]</span>
+        <span class="n">upper</span> <span class="o">=</span> <span class="n">x_</span><span class="o">+</span><span class="n">d</span>
+        <span class="n">lower</span> <span class="o">=</span> <span class="n">x_</span><span class="o">-</span><span class="n">d</span>
+
+        <span class="n">a</span><span class="p">[</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span><span class="o">*</span><span class="n">rho0</span><span class="o">*</span><span class="n">Rs</span><span class="o">**</span><span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">g</span><span class="p">(</span><span class="n">upper</span><span class="p">)</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">g</span><span class="p">(</span><span class="n">lower</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x_</span><span class="o">*</span><span class="n">Rs</span><span class="o">*</span><span class="n">pixscale</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">[</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span><span class="o">*</span><span class="n">rho0</span><span class="o">*</span><span class="n">Rs</span><span class="o">**</span><span class="mi">3</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">g</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="n">pixscale</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">a</span>
+</div>
+<div class="viewcode-block" id="NFW.nfwPot"><a class="viewcode-back" href="../../../MultiLens.Profiles.html#MultiLens.Profiles.nfw.NFW.nfwPot">[docs]</a>    <span class="k">def</span> <span class="nf">nfwPot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span> <span class="n">rho0</span><span class="p">,</span> <span class="n">r200</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        lensing potential of NFW profile (*Sigma_crit*D_OL**2)</span>
+
+<span class="sd">        :param R: radius of interest</span>
+<span class="sd">        :type R: float/numpy array</span>
+<span class="sd">        :param Rs: scale radius</span>
+<span class="sd">        :type Rs: float</span>
+<span class="sd">        :param rho0: density normalization (characteristic density)</span>
+<span class="sd">        :type rho0: float</span>
+<span class="sd">        :param r200: radius of (sub)halo</span>
+<span class="sd">        :type r200: float&gt;0</span>
+<span class="sd">        :return: Epsilon(R) projected density at radius R</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">R</span><span class="o">/</span><span class="n">Rs</span>
+        <span class="n">hx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">rho0</span><span class="o">*</span><span class="n">Rs</span><span class="o">**</span><span class="mi">3</span><span class="o">*</span><span class="n">hx</span>
+</div>
+<div class="viewcode-block" id="NFW.nfwAlpha"><a class="viewcode-back" href="../../../MultiLens.Profiles.html#MultiLens.Profiles.nfw.NFW.nfwAlpha">[docs]</a>    <span class="k">def</span> <span class="nf">nfwAlpha</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span> <span class="n">rho0</span><span class="p">,</span> <span class="n">r200</span><span class="p">,</span> <span class="n">ax_x</span><span class="p">,</span> <span class="n">ax_y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        deflection angel of NFW profile (*Sigma_crit*D_OL) along the projection to coordinate &quot;axis&quot;</span>
+
+<span class="sd">        :param R: radius of interest</span>
+<span class="sd">        :type R: float/numpy array</span>
+<span class="sd">        :param Rs: scale radius</span>
+<span class="sd">        :type Rs: float</span>
+<span class="sd">        :param rho0: density normalization (characteristic density)</span>
+<span class="sd">        :type rho0: float</span>
+<span class="sd">        :param r200: radius of (sub)halo</span>
+<span class="sd">        :type r200: float&gt;0</span>
+<span class="sd">        :param axis: projection to either x- or y-axis</span>
+<span class="sd">        :type axis: same as R</span>
+<span class="sd">        :return: Epsilon(R) projected density at radius R</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+            <span class="n">R</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">R</span><span class="p">[</span><span class="n">R</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.001</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">R</span><span class="o">/</span><span class="n">Rs</span>
+        <span class="n">gx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="mi">4</span><span class="o">*</span><span class="n">rho0</span><span class="o">*</span><span class="n">Rs</span><span class="o">*</span><span class="n">R</span><span class="o">*</span><span class="n">gx</span><span class="o">/</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">R</span>
+        <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="n">ax_x</span><span class="p">,</span> <span class="n">a</span><span class="o">*</span><span class="n">ax_y</span>
+</div>
+<div class="viewcode-block" id="NFW.nfwGamma"><a class="viewcode-back" href="../../../MultiLens.Profiles.html#MultiLens.Profiles.nfw.NFW.nfwGamma">[docs]</a>    <span class="k">def</span> <span class="nf">nfwGamma</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span> <span class="n">rho0</span><span class="p">,</span> <span class="n">r200</span><span class="p">,</span> <span class="n">ax_x</span><span class="p">,</span> <span class="n">ax_y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        shear gamma of NFW profile (*Sigma_crit) along the projection to coordinate &quot;axis&quot;</span>
+
+<span class="sd">        :param R: radius of interest</span>
+<span class="sd">        :type R: float/numpy array</span>
+<span class="sd">        :param Rs: scale radius</span>
+<span class="sd">        :type Rs: float</span>
+<span class="sd">        :param rho0: density normalization (characteristic density)</span>
+<span class="sd">        :type rho0: float</span>
+<span class="sd">        :param r200: radius of (sub)halo</span>
+<span class="sd">        :type r200: float&gt;0</span>
+<span class="sd">        :param axis: projection to either x- or y-axis</span>
+<span class="sd">        :type axis: same as R</span>
+<span class="sd">        :return: Epsilon(R) projected density at radius R</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+            <span class="n">R</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">R</span><span class="p">[</span><span class="n">R</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.001</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">R</span><span class="o">/</span><span class="n">Rs</span>
+        <span class="n">gx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">Fx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">rho0</span><span class="o">*</span><span class="n">Rs</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">gx</span><span class="o">/</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">Fx</span><span class="p">)</span><span class="c">#/x #2*rho0*Rs*(2*gx/x**2 - Fx)*axis/x</span>
+        <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="p">(</span><span class="n">ax_y</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="n">ax_x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="n">R</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">a</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">ax_x</span><span class="o">*</span><span class="n">ax_y</span><span class="p">)</span><span class="o">/</span><span class="n">R</span><span class="o">**</span><span class="mi">2</span>
+</div>
+<div class="viewcode-block" id="NFW.F"><a class="viewcode-back" href="../../../MultiLens.Profiles.html#MultiLens.Profiles.nfw.NFW.F">[docs]</a>    <span class="k">def</span> <span class="nf">F</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        analytic solution of the projection integral</span>
+
+<span class="sd">        :param x: R/Rs</span>
+<span class="sd">        :type x: float &gt;0</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">X</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">X</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">X</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">X</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arctanh</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">X</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">X</span><span class="p">))))</span>
+            <span class="k">elif</span> <span class="n">X</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="mi">3</span>
+            <span class="k">elif</span> <span class="n">X</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">X</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">X</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">X</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">X</span><span class="p">))))</span>
+            <span class="k">elif</span> <span class="n">X</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">c</span> <span class="o">=</span> <span class="mf">0.0001</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arctanh</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">c</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">c</span><span class="p">))))</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">a</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">X</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">a</span><span class="p">[</span><span class="n">X</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arctanh</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">x</span><span class="p">))))</span>
+
+            <span class="n">x</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">X</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">a</span><span class="p">[</span><span class="n">X</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="mf">3.</span>
+
+            <span class="n">x</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">X</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">a</span><span class="p">[</span><span class="n">X</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">x</span><span class="p">))))</span>
+            <span class="c"># a[X&gt;y] = 0</span>
+
+            <span class="n">c</span> <span class="o">=</span> <span class="mf">0.001</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">X</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">a</span><span class="p">[</span><span class="n">X</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arctanh</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">c</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">c</span><span class="p">))))</span>
+        <span class="k">return</span> <span class="n">a</span>
+</div>
+<div class="viewcode-block" id="NFW.g"><a class="viewcode-back" href="../../../MultiLens.Profiles.html#MultiLens.Profiles.nfw.NFW.g">[docs]</a>    <span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        analytic solution of integral for NFW profile to compute deflection angel and gamma</span>
+
+<span class="sd">        :param x: R/Rs</span>
+<span class="sd">        :type x: float &gt;0</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">X</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arccosh</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">X</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">X</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">X</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">X</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">a</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            <span class="n">X</span><span class="p">[</span><span class="n">X</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.001</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">X</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="n">a</span><span class="p">[</span><span class="n">X</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arccosh</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">x</span><span class="p">)</span>
+
+            <span class="n">a</span><span class="p">[</span><span class="n">X</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
+
+            <span class="n">x</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">X</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">a</span><span class="p">[</span><span class="n">X</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">a</span>
+</div>
+<div class="viewcode-block" id="NFW.h"><a class="viewcode-back" href="../../../MultiLens.Profiles.html#MultiLens.Profiles.nfw.NFW.h">[docs]</a>    <span class="k">def</span> <span class="nf">h</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        analytic solution of integral for NFW profile to compute the potential</span>
+
+<span class="sd">        :param x: R/Rs</span>
+<span class="sd">        :type x: float &gt;0</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">X</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">arccosh</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+            <span class="k">elif</span> <span class="n">X</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">X</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">X</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">a</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            <span class="n">X</span><span class="p">[</span><span class="n">X</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.001</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">X</span><span class="p">[(</span><span class="n">X</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">X</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)]</span>
+            <span class="n">a</span><span class="p">[(</span><span class="n">X</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">X</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">arccosh</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">X</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">a</span><span class="p">[</span><span class="n">X</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+        <span class="k">return</span> <span class="n">a</span>
+</div>
+<div class="viewcode-block" id="NFW.alpha2rho0"><a class="viewcode-back" href="../../../MultiLens.Profiles.html#MultiLens.Profiles.nfw.NFW.alpha2rho0">[docs]</a>    <span class="k">def</span> <span class="nf">alpha2rho0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">phi_E</span><span class="p">,</span> <span class="n">Rs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        convert angle at Rs into rho0</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">phi_E</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">Rs</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="mf">2.</span><span class="p">)))</span>
+
+</div></div>
+<div class="viewcode-block" id="HaloParam"><a class="viewcode-back" href="../../../MultiLens.Profiles.html#MultiLens.Profiles.nfw.HaloParam">[docs]</a><span class="k">class</span> <span class="nc">HaloParam</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    class which contains a halo model parameters dependent on cosmology for NFW profile</span>
+<span class="sd">    all distances are given in comoving coordinates</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">rhoc</span> <span class="o">=</span> <span class="mf">2.77536627e11</span>  <span class="c"># critical density [h^2 M_sun Mpc^-3]</span>
+
+<div class="viewcode-block" id="HaloParam.M200"><a class="viewcode-back" href="../../../MultiLens.Profiles.html#MultiLens.Profiles.nfw.HaloParam.M200">[docs]</a>    <span class="k">def</span> <span class="nf">M200</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span> <span class="n">rho0</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        M(R_200) calculation for NFW profile</span>
+
+<span class="sd">        :param Rs: scale radius</span>
+<span class="sd">        :type Rs: float</span>
+<span class="sd">        :param rho0: density normalization (characteristic density)</span>
+<span class="sd">        :type rho0: float</span>
+<span class="sd">        :param c: consentration</span>
+<span class="sd">        :type c: float [4,40]</span>
+<span class="sd">        :return: M(R_200) density</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">rho0</span><span class="o">*</span><span class="n">Rs</span><span class="o">**</span><span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">c</span><span class="p">)</span><span class="o">-</span><span class="n">c</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">c</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="HaloParam.r200_M"><a class="viewcode-back" href="../../../MultiLens.Profiles.html#MultiLens.Profiles.nfw.HaloParam.r200_M">[docs]</a>    <span class="k">def</span> <span class="nf">r200_M</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">M</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        computes the radius R_200 of a halo of mass M in comoving distances</span>
+
+<span class="sd">        :param M: halo mass in M_sun/h</span>
+<span class="sd">        :type M: float or numpy array</span>
+<span class="sd">        :return: radius R_200 in comoving Mpc/h</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">M</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">rhoc</span><span class="o">*</span><span class="mi">200</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="mf">3.</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="HaloParam.rho0_c"><a class="viewcode-back" href="../../../MultiLens.Profiles.html#MultiLens.Profiles.nfw.HaloParam.rho0_c">[docs]</a>    <span class="k">def</span> <span class="nf">rho0_c</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        computes density normalization as a functio of concentration parameter</span>
+<span class="sd">        :return: density normalization in h^2/Mpc^3 (comoving)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mf">200.</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">rhoc</span><span class="o">*</span><span class="n">c</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">c</span><span class="p">)</span><span class="o">-</span><span class="n">c</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">c</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="HaloParam.c_M_z"><a class="viewcode-back" href="../../../MultiLens.Profiles.html#MultiLens.Profiles.nfw.HaloParam.c_M_z">[docs]</a>    <span class="k">def</span> <span class="nf">c_M_z</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        fitting function of http://moriond.in2p3.fr/J08/proceedings/duffy.pdf for the mass and redshift dependence of the concentration parameter</span>
+
+<span class="sd">        :param M: halo mass in M_sun/h</span>
+<span class="sd">        :type M: float or numpy array</span>
+<span class="sd">        :param z: redshift</span>
+<span class="sd">        :type z: float &gt;0</span>
+<span class="sd">        :return: concentration parameter as float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># fitted parameter values</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="mf">5.22</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.072</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.42</span>
+        <span class="n">M_pivot</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">12</span>
+        <span class="k">return</span> <span class="n">A</span><span class="o">*</span><span class="p">(</span><span class="n">M</span><span class="o">/</span><span class="n">M_pivot</span><span class="p">)</span><span class="o">**</span><span class="n">B</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">z</span><span class="p">)</span><span class="o">**</span><span class="n">C</span>
+</div>
+<div class="viewcode-block" id="HaloParam.profileMain"><a class="viewcode-back" href="../../../MultiLens.Profiles.html#MultiLens.Profiles.nfw.HaloParam.profileMain">[docs]</a>    <span class="k">def</span> <span class="nf">profileMain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns all needed parameter to draw the profile of the main halo</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">c_M_z</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>
+        <span class="n">r200</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">r200_M</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+        <span class="n">rho0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rho0_c</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+        <span class="n">Rs</span> <span class="o">=</span> <span class="n">r200</span><span class="o">/</span><span class="n">c</span>
+        <span class="k">return</span> <span class="n">r200</span><span class="p">,</span><span class="n">rho0</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">Rs</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">multiLens 0.1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, ETH Zurich, Institute for Astronomy.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

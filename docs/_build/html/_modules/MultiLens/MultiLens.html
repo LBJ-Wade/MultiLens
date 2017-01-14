@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MultiLens.MultiLens &mdash; multiLens 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="multiLens 0.1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">multiLens 0.1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for MultiLens.MultiLens</h1><div class="highlight"><pre>
+<span class="c">#! /usr/bin/env python</span>
+
+<span class="c"># Copyright (C) 2016 ETH Zurich, Institute for Astronomy</span>
+
+<span class="c"># System imports</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+
+<span class="c"># External modules</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="c"># MultiLens imports</span>
+<span class="kn">from</span> <span class="nn">MultiLens.analytic_lens</span> <span class="kn">import</span> <span class="n">AnalyticLens</span>
+<span class="kn">from</span> <span class="nn">MultiLens.Cosmo.cosmo</span> <span class="kn">import</span> <span class="n">CosmoProp</span>
+
+<div class="viewcode-block" id="MultiLens"><a class="viewcode-back" href="../../MultiLens.html#MultiLens.MultiLens.MultiLens">[docs]</a><span class="k">class</span> <span class="nc">MultiLens</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    this class aims to compute the lensing quantities of multi-plane lenses with full ray-tracing and approximation methods</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyticLens</span> <span class="o">=</span> <span class="n">AnalyticLens</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cosmo</span> <span class="o">=</span> <span class="n">CosmoProp</span><span class="p">()</span>
+
+<div class="viewcode-block" id="MultiLens.full_ray_tracing"><a class="viewcode-back" href="../../MultiLens.html#MultiLens.MultiLens.MultiLens.full_ray_tracing">[docs]</a>    <span class="k">def</span> <span class="nf">full_ray_tracing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lensAssembly</span><span class="p">,</span> <span class="n">z_source</span><span class="p">,</span> <span class="n">x_array</span><span class="p">,</span> <span class="n">y_array</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        full ray-tracing routine (eqn 10,11 in Birrer in prep), implemented with equation 12 in a recursive way</span>
+<span class="sd">        (!assuming flat cosmology!)</span>
+<span class="sd">        :param object_list: list of sources with specified physical deflection angles (sorted by redshift)</span>
+<span class="sd">        :param z_source: redshift of the source</span>
+<span class="sd">        :param x_array: x-coords of the rays</span>
+<span class="sd">        :param y_array: y-coords of the rays</span>
+<span class="sd">        :return: deflections delta x_coords, delta y_coords such that x_source = x - delta x_source</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">object_list</span> <span class="o">=</span> <span class="n">lensAssembly</span><span class="o">.</span><span class="n">object_array</span>
+        <span class="n">alpha_x_tot</span> <span class="o">=</span> <span class="n">x_array</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">alpha_y_tot</span> <span class="o">=</span> <span class="n">y_array</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">x_k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">alpha_x_tot</span><span class="p">)</span>
+        <span class="n">y_k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">alpha_x_tot</span><span class="p">)</span>
+        <span class="n">z_last</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">lensObject</span> <span class="ow">in</span> <span class="n">object_list</span><span class="p">:</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">lensObject</span><span class="o">.</span><span class="n">redshift</span>
+            <span class="k">if</span> <span class="n">z</span> <span class="o">&lt;</span> <span class="n">z_source</span><span class="p">:</span>
+                <span class="n">T_k_last</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosmo</span><span class="o">.</span><span class="n">T_xy</span><span class="p">(</span><span class="n">z_last</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+                <span class="n">x_k</span> <span class="o">+=</span> <span class="n">alpha_x_tot</span><span class="o">*</span><span class="n">T_k_last</span>
+                <span class="n">y_k</span> <span class="o">+=</span> <span class="n">alpha_y_tot</span><span class="o">*</span><span class="n">T_k_last</span>
+                <span class="n">x_k_phys</span><span class="p">,</span> <span class="n">y_k_phys</span> <span class="o">=</span> <span class="n">x_k</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">z</span><span class="p">),</span> <span class="n">y_k</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">z</span><span class="p">)</span>
+                <span class="n">alpha_x</span><span class="p">,</span> <span class="n">alpha_y</span> <span class="o">=</span> <span class="n">lensObject</span><span class="o">.</span><span class="n">deflection</span><span class="p">(</span><span class="n">x_k_phys</span><span class="p">,</span> <span class="n">y_k_phys</span><span class="p">)</span>
+                <span class="n">alpha_x_tot</span> <span class="o">-=</span> <span class="n">alpha_x</span>
+                <span class="n">alpha_y_tot</span> <span class="o">-=</span> <span class="n">alpha_y</span>
+                <span class="n">z_last</span> <span class="o">=</span> <span class="n">z</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="n">T_k_last</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosmo</span><span class="o">.</span><span class="n">T_xy</span><span class="p">(</span><span class="n">z_last</span><span class="p">,</span> <span class="n">z_source</span><span class="p">)</span>
+        <span class="n">D_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosmo</span><span class="o">.</span><span class="n">D_xy</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">z_source</span><span class="p">)</span>
+        <span class="n">x_k</span> <span class="o">+=</span> <span class="n">alpha_x_tot</span><span class="o">*</span><span class="n">T_k_last</span>
+        <span class="n">y_k</span> <span class="o">+=</span> <span class="n">alpha_y_tot</span><span class="o">*</span><span class="n">T_k_last</span>
+        <span class="n">x_s_phys</span><span class="p">,</span> <span class="n">y_s_phys</span> <span class="o">=</span> <span class="n">x_k</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">z_source</span><span class="p">),</span> <span class="n">y_k</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">z_source</span><span class="p">)</span>
+        <span class="n">beta_sx</span> <span class="o">=</span> <span class="n">x_s_phys</span> <span class="o">/</span> <span class="n">D_s</span>
+        <span class="n">beta_sy</span> <span class="o">=</span> <span class="n">y_s_phys</span> <span class="o">/</span> <span class="n">D_s</span>
+        <span class="k">return</span> <span class="n">beta_sx</span><span class="p">,</span> <span class="n">beta_sy</span>
+</div>
+<div class="viewcode-block" id="MultiLens.combined_ray_tracing"><a class="viewcode-back" href="../../MultiLens.html#MultiLens.MultiLens.MultiLens.combined_ray_tracing">[docs]</a>    <span class="k">def</span> <span class="nf">combined_ray_tracing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lensAssembly</span><span class="p">,</span> <span class="n">z_source</span><span class="p">,</span> <span class="n">x_array</span><span class="p">,</span> <span class="n">y_array</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        ray-tracing routine with Born approximation for the objects specified (eqn 17 in Birrer in prep)</span>
+<span class="sd">        :param object_list: list of sources with specified physical deflection angles (sorted by redshift)</span>
+<span class="sd">        :param z_source: redshift of the source</span>
+<span class="sd">        :param x_array: x-coords of the rays</span>
+<span class="sd">        :param y_array: y-coords of the rays</span>
+<span class="sd">        :return: deflections delta x_coords, delta y_coords such that x_source = x - delta x_source</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">object_list</span> <span class="o">=</span> <span class="n">lensAssembly</span><span class="o">.</span><span class="n">object_array</span>
+        <span class="n">mainLens</span> <span class="o">=</span> <span class="n">lensAssembly</span><span class="o">.</span><span class="n">main_deflector</span><span class="p">()</span>
+        <span class="n">z_d</span> <span class="o">=</span> <span class="n">mainLens</span><span class="o">.</span><span class="n">redshift</span>
+
+        <span class="n">beta_dx</span> <span class="o">=</span> <span class="n">x_array</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">beta_dy</span> <span class="o">=</span> <span class="n">y_array</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">beta_sx</span> <span class="o">=</span> <span class="n">x_array</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">beta_sy</span> <span class="o">=</span> <span class="n">y_array</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">alpha_x_foreground</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">alpha_y_foreground</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">alpha_dx</span><span class="p">,</span> <span class="n">alpha_dy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="n">Ds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosmo</span><span class="o">.</span><span class="n">D_xy</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">z_source</span><span class="p">)</span>
+        <span class="n">Dd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosmo</span><span class="o">.</span><span class="n">D_xy</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">z_d</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">lensObject</span> <span class="ow">in</span> <span class="n">object_list</span><span class="p">:</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">lensObject</span><span class="o">.</span><span class="n">redshift</span>
+            <span class="k">if</span> <span class="n">z</span> <span class="o">&lt;</span> <span class="n">z_d</span><span class="p">:</span>
+                <span class="n">D_k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosmo</span><span class="o">.</span><span class="n">D_xy</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+                <span class="n">D_ks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosmo</span><span class="o">.</span><span class="n">D_xy</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">z_source</span><span class="p">)</span>
+                <span class="n">D_kd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosmo</span><span class="o">.</span><span class="n">D_xy</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">z_d</span><span class="p">)</span>
+                <span class="n">alpha_x</span><span class="p">,</span> <span class="n">alpha_y</span> <span class="o">=</span> <span class="n">lensObject</span><span class="o">.</span><span class="n">deflection</span><span class="p">(</span><span class="n">D_k</span><span class="o">*</span><span class="n">x_array</span><span class="p">,</span> <span class="n">D_k</span><span class="o">*</span><span class="n">y_array</span><span class="p">)</span>
+                <span class="n">alpha_x_foreground</span> <span class="o">+=</span> <span class="n">alpha_x</span>
+                <span class="n">alpha_y_foreground</span> <span class="o">+=</span> <span class="n">alpha_y</span>
+                <span class="n">beta_sx</span> <span class="o">-=</span> <span class="n">D_ks</span><span class="o">/</span><span class="n">Ds</span><span class="o">*</span><span class="n">alpha_x</span>
+                <span class="n">beta_sy</span> <span class="o">-=</span> <span class="n">D_ks</span><span class="o">/</span><span class="n">Ds</span><span class="o">*</span><span class="n">alpha_y</span>
+                <span class="n">beta_dx</span> <span class="o">-=</span> <span class="n">D_kd</span><span class="o">/</span><span class="n">Dd</span><span class="o">*</span><span class="n">alpha_x</span>
+                <span class="n">beta_dy</span> <span class="o">-=</span> <span class="n">D_kd</span><span class="o">/</span><span class="n">Dd</span><span class="o">*</span><span class="n">alpha_y</span>
+            <span class="k">elif</span> <span class="n">lensObject</span><span class="o">.</span><span class="n">main</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="n">D_ds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosmo</span><span class="o">.</span><span class="n">D_xy</span><span class="p">(</span><span class="n">z_d</span><span class="p">,</span> <span class="n">z_source</span><span class="p">)</span>
+                <span class="n">alpha_dx</span><span class="p">,</span> <span class="n">alpha_dy</span> <span class="o">=</span> <span class="n">lensObject</span><span class="o">.</span><span class="n">deflection</span><span class="p">(</span><span class="n">Dd</span><span class="o">*</span><span class="n">beta_dx</span><span class="p">,</span> <span class="n">Dd</span><span class="o">*</span><span class="n">beta_dy</span><span class="p">)</span>
+                <span class="n">alpha_dx</span> <span class="o">*=</span> <span class="n">D_ds</span><span class="o">/</span><span class="n">Ds</span>
+                <span class="n">alpha_dy</span> <span class="o">*=</span> <span class="n">D_ds</span><span class="o">/</span><span class="n">Ds</span>
+                <span class="n">beta_sx</span> <span class="o">-=</span> <span class="n">alpha_dx</span>
+                <span class="n">beta_sy</span> <span class="o">-=</span> <span class="n">alpha_dy</span>
+            <span class="k">elif</span> <span class="n">z</span> <span class="o">&gt;=</span> <span class="n">z_d</span><span class="p">:</span>
+                <span class="n">D_k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosmo</span><span class="o">.</span><span class="n">D_xy</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+                <span class="n">D_ks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosmo</span><span class="o">.</span><span class="n">D_xy</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">z_source</span><span class="p">)</span>
+                <span class="n">D_kd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosmo</span><span class="o">.</span><span class="n">D_xy</span><span class="p">(</span><span class="n">z_d</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+                <span class="n">beta_x</span> <span class="o">=</span> <span class="n">beta_dx</span> <span class="o">-</span> <span class="n">D_kd</span><span class="o">/</span><span class="n">D_k</span><span class="o">*</span><span class="p">(</span><span class="n">alpha_dx</span> <span class="o">+</span> <span class="n">alpha_x_foreground</span><span class="p">)</span>  <span class="c"># equation 16 in Birrer in prep</span>
+                <span class="n">beta_y</span> <span class="o">=</span> <span class="n">beta_dy</span> <span class="o">-</span> <span class="n">D_kd</span><span class="o">/</span><span class="n">D_k</span><span class="o">*</span><span class="p">(</span><span class="n">alpha_dy</span> <span class="o">+</span> <span class="n">alpha_y_foreground</span><span class="p">)</span>  <span class="c"># equation 16 in Birrer in prep</span>
+                <span class="n">alpha_x</span><span class="p">,</span> <span class="n">alpha_y</span> <span class="o">=</span> <span class="n">lensObject</span><span class="o">.</span><span class="n">deflection</span><span class="p">(</span><span class="n">D_k</span><span class="o">*</span><span class="n">beta_x</span><span class="p">,</span> <span class="n">D_k</span><span class="o">*</span><span class="n">beta_y</span><span class="p">)</span>
+                <span class="n">beta_sx</span> <span class="o">-=</span> <span class="n">D_ks</span><span class="o">/</span><span class="n">Ds</span><span class="o">*</span><span class="n">alpha_x</span>
+                <span class="n">beta_sy</span> <span class="o">-=</span> <span class="n">D_ks</span><span class="o">/</span><span class="n">Ds</span><span class="o">*</span><span class="n">alpha_y</span>
+        <span class="k">return</span> <span class="n">beta_sx</span><span class="p">,</span> <span class="n">beta_sy</span>
+</div>
+<div class="viewcode-block" id="MultiLens.born_ray_tracing"><a class="viewcode-back" href="../../MultiLens.html#MultiLens.MultiLens.MultiLens.born_ray_tracing">[docs]</a>    <span class="k">def</span> <span class="nf">born_ray_tracing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lensAssembly</span><span class="p">,</span> <span class="n">z_source</span><span class="p">,</span> <span class="n">x_array</span><span class="p">,</span> <span class="n">y_array</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        routine with Born approximation for all objects (eqn 14 in Birrer in prep)</span>
+<span class="sd">        :param object_list: list of sources with specified physical deflection angles (sorted by redshift)</span>
+<span class="sd">        :param z_source: redshift of the source</span>
+<span class="sd">        :param x_array: x-coords of the rays</span>
+<span class="sd">        :param y_array: y-coords of the rays</span>
+<span class="sd">        :return: deflections delta x_coords, delta y_coords such that x_source = x - delta x_source</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">object_list</span> <span class="o">=</span> <span class="n">lensAssembly</span><span class="o">.</span><span class="n">object_array</span>
+        <span class="n">beta_sx</span> <span class="o">=</span> <span class="n">x_array</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">beta_sy</span> <span class="o">=</span> <span class="n">y_array</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">Ds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosmo</span><span class="o">.</span><span class="n">D_xy</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">z_source</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">lensObject</span> <span class="ow">in</span> <span class="n">object_list</span><span class="p">:</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">lensObject</span><span class="o">.</span><span class="n">redshift</span>
+            <span class="k">if</span> <span class="n">z</span> <span class="o">&lt;</span> <span class="n">z_source</span><span class="p">:</span>
+                <span class="n">D_k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosmo</span><span class="o">.</span><span class="n">D_xy</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+                <span class="n">D_ks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosmo</span><span class="o">.</span><span class="n">D_xy</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">z_source</span><span class="p">)</span>
+                <span class="n">delta_x</span><span class="p">,</span> <span class="n">delta_y</span> <span class="o">=</span> <span class="n">lensObject</span><span class="o">.</span><span class="n">deflection</span><span class="p">(</span><span class="n">D_k</span><span class="o">*</span><span class="n">x_array</span><span class="p">,</span> <span class="n">D_k</span><span class="o">*</span><span class="n">y_array</span><span class="p">)</span>
+                <span class="n">beta_sx</span> <span class="o">-=</span> <span class="n">delta_x</span><span class="o">*</span><span class="n">D_ks</span><span class="o">/</span><span class="n">Ds</span>
+                <span class="n">beta_sy</span> <span class="o">-=</span> <span class="n">delta_y</span><span class="o">*</span><span class="n">D_ks</span><span class="o">/</span><span class="n">Ds</span>
+        <span class="k">return</span> <span class="n">beta_sx</span><span class="p">,</span> <span class="n">beta_sy</span>
+</div>
+<div class="viewcode-block" id="MultiLens.analytic_mapping"><a class="viewcode-back" href="../../MultiLens.html#MultiLens.MultiLens.MultiLens.analytic_mapping">[docs]</a>    <span class="k">def</span> <span class="nf">analytic_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lensAssembly</span><span class="p">,</span> <span class="n">z_source</span><span class="p">,</span> <span class="n">x_array</span><span class="p">,</span> <span class="n">y_array</span><span class="p">,</span> <span class="n">LOS_corrected</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        computes equation 29 in Birrer in prep with analytic terms for the LOS structure</span>
+<span class="sd">        :param object_list:</span>
+<span class="sd">        :param z_source:</span>
+<span class="sd">        :param x_array:</span>
+<span class="sd">        :param y_array:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">object_list</span> <span class="o">=</span> <span class="n">lensAssembly</span><span class="o">.</span><span class="n">object_array</span>
+        <span class="n">mainLens</span> <span class="o">=</span> <span class="n">lensAssembly</span><span class="o">.</span><span class="n">main_deflector</span><span class="p">()</span>
+        <span class="n">z_d</span> <span class="o">=</span> <span class="n">mainLens</span><span class="o">.</span><span class="n">redshift</span>
+        <span class="n">D_ds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosmo</span><span class="o">.</span><span class="n">D_xy</span><span class="p">(</span><span class="n">z_d</span><span class="p">,</span> <span class="n">z_source</span><span class="p">)</span>
+        <span class="n">Ds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosmo</span><span class="o">.</span><span class="n">D_xy</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">z_source</span><span class="p">)</span>
+        <span class="n">Dd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosmo</span><span class="o">.</span><span class="n">D_xy</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">z_d</span><span class="p">)</span>
+        <span class="n">gamma_A</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyticLens</span><span class="o">.</span><span class="n">shear_lens</span><span class="p">(</span><span class="n">object_list</span><span class="p">,</span> <span class="n">z_d</span><span class="p">)</span>
+        <span class="n">gamma_B</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyticLens</span><span class="o">.</span><span class="n">shear_foreground</span><span class="p">(</span><span class="n">object_list</span><span class="p">,</span> <span class="n">z_lens</span><span class="o">=</span><span class="n">z_d</span><span class="p">,</span> <span class="n">z_source</span><span class="o">=</span><span class="n">z_source</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">LOS_corrected</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="n">gamma_C</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyticLens</span><span class="o">.</span><span class="n">shear_background_first_order</span><span class="p">(</span><span class="n">object_list</span><span class="p">,</span> <span class="n">z_d</span><span class="p">,</span> <span class="n">z_source</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">gamma_C</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyticLens</span><span class="o">.</span><span class="n">shear_background_zero</span><span class="p">(</span><span class="n">object_list</span><span class="p">,</span> <span class="n">z_d</span><span class="p">,</span> <span class="n">z_source</span><span class="p">)</span>
+        <span class="n">gamma_BC</span> <span class="o">=</span> <span class="n">gamma_B</span> <span class="o">+</span> <span class="n">gamma_C</span>
+        <span class="n">x_lens</span> <span class="o">=</span> <span class="n">gamma_A</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">x_array</span> <span class="o">+</span> <span class="n">gamma_A</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">y_array</span> <span class="o">+</span> <span class="n">x_array</span>
+        <span class="n">y_lens</span> <span class="o">=</span> <span class="n">gamma_A</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">x_array</span> <span class="o">+</span> <span class="n">gamma_A</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">y_array</span> <span class="o">+</span> <span class="n">y_array</span>
+
+        <span class="n">shear_x</span> <span class="o">=</span> <span class="n">gamma_BC</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">x_array</span> <span class="o">+</span> <span class="n">gamma_BC</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">y_array</span>
+        <span class="n">shear_y</span> <span class="o">=</span> <span class="n">gamma_BC</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">x_array</span> <span class="o">+</span> <span class="n">gamma_BC</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">y_array</span>
+
+        <span class="n">alpha_x</span><span class="p">,</span> <span class="n">alpha_y</span> <span class="o">=</span> <span class="n">mainLens</span><span class="o">.</span><span class="n">deflection</span><span class="p">(</span><span class="n">Dd</span><span class="o">*</span><span class="n">x_lens</span><span class="p">,</span> <span class="n">Dd</span><span class="o">*</span><span class="n">y_lens</span><span class="p">)</span>
+        <span class="n">beta_sx</span> <span class="o">=</span> <span class="n">x_array</span> <span class="o">-</span> <span class="n">D_ds</span><span class="o">/</span><span class="n">Ds</span> <span class="o">*</span> <span class="n">alpha_x</span> <span class="o">+</span> <span class="n">shear_x</span>
+        <span class="n">beta_sy</span> <span class="o">=</span> <span class="n">y_array</span> <span class="o">-</span> <span class="n">D_ds</span><span class="o">/</span><span class="n">Ds</span> <span class="o">*</span> <span class="n">alpha_y</span> <span class="o">+</span> <span class="n">shear_y</span>
+        <span class="k">return</span> <span class="n">beta_sx</span><span class="p">,</span> <span class="n">beta_sy</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">multiLens 0.1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, ETH Zurich, Institute for Astronomy.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MultiLens package &mdash; multiLens 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="multiLens 0.1.0 documentation" href="index.html" />
+    <link rel="next" title="MultiLens.Cosmo package" href="MultiLens.Cosmo.html" />
+    <link rel="prev" title="Usage" href="usage.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="MultiLens.Cosmo.html" title="MultiLens.Cosmo package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">multiLens 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="multilens-package">
+<h1>MultiLens package<a class="headerlink" href="#multilens-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="MultiLens.Cosmo.html">MultiLens.Cosmo package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="MultiLens.Cosmo.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MultiLens.Cosmo.html#module-MultiLens.Cosmo.cosmo">MultiLens.Cosmo.cosmo module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MultiLens.Cosmo.html#module-MultiLens.Cosmo.pycosmo_config_planck2013">MultiLens.Cosmo.pycosmo_config_planck2013 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MultiLens.Cosmo.html#module-MultiLens.Cosmo">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="MultiLens.Profiles.html">MultiLens.Profiles package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="MultiLens.Profiles.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MultiLens.Profiles.html#module-MultiLens.Profiles.SIS">MultiLens.Profiles.SIS module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MultiLens.Profiles.html#module-MultiLens.Profiles.gaussian">MultiLens.Profiles.gaussian module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MultiLens.Profiles.html#module-MultiLens.Profiles.nfw">MultiLens.Profiles.nfw module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MultiLens.Profiles.html#module-MultiLens.Profiles.point_mass">MultiLens.Profiles.point_mass module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MultiLens.Profiles.html#module-MultiLens.Profiles">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="MultiLens.Utils.html">MultiLens.Utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="MultiLens.Utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MultiLens.Utils.html#module-MultiLens.Utils.constants">MultiLens.Utils.constants module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MultiLens.Utils.html#module-MultiLens.Utils.utils">MultiLens.Utils.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MultiLens.Utils.html#module-MultiLens.Utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-MultiLens.MultiLens">
+<span id="multilens-multilens-module"></span><h2>MultiLens.MultiLens module<a class="headerlink" href="#module-MultiLens.MultiLens" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="MultiLens.MultiLens.MultiLens">
+<em class="property">class </em><code class="descclassname">MultiLens.MultiLens.</code><code class="descname">MultiLens</code><a class="reference internal" href="_modules/MultiLens/MultiLens.html#MultiLens"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.MultiLens.MultiLens" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>this class aims to compute the lensing quantities of multi-plane lenses with full ray-tracing and approximation methods</p>
+<dl class="method">
+<dt id="MultiLens.MultiLens.MultiLens.analytic_mapping">
+<code class="descname">analytic_mapping</code><span class="sig-paren">(</span><em>lensAssembly</em>, <em>z_source</em>, <em>x_array</em>, <em>y_array</em>, <em>LOS_corrected=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/MultiLens.html#MultiLens.analytic_mapping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.MultiLens.MultiLens.analytic_mapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>computes equation 29 in Birrer in prep with analytic terms for the LOS structure
+:param object_list:
+:param z_source:
+:param x_array:
+:param y_array:
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.MultiLens.MultiLens.born_ray_tracing">
+<code class="descname">born_ray_tracing</code><span class="sig-paren">(</span><em>lensAssembly</em>, <em>z_source</em>, <em>x_array</em>, <em>y_array</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/MultiLens.html#MultiLens.born_ray_tracing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.MultiLens.MultiLens.born_ray_tracing" title="Permalink to this definition">¶</a></dt>
+<dd><p>routine with Born approximation for all objects (eqn 14 in Birrer in prep)
+:param object_list: list of sources with specified physical deflection angles (sorted by redshift)
+:param z_source: redshift of the source
+:param x_array: x-coords of the rays
+:param y_array: y-coords of the rays
+:return: deflections delta x_coords, delta y_coords such that x_source = x - delta x_source</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.MultiLens.MultiLens.combined_ray_tracing">
+<code class="descname">combined_ray_tracing</code><span class="sig-paren">(</span><em>lensAssembly</em>, <em>z_source</em>, <em>x_array</em>, <em>y_array</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/MultiLens.html#MultiLens.combined_ray_tracing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.MultiLens.MultiLens.combined_ray_tracing" title="Permalink to this definition">¶</a></dt>
+<dd><p>ray-tracing routine with Born approximation for the objects specified (eqn 17 in Birrer in prep)
+:param object_list: list of sources with specified physical deflection angles (sorted by redshift)
+:param z_source: redshift of the source
+:param x_array: x-coords of the rays
+:param y_array: y-coords of the rays
+:return: deflections delta x_coords, delta y_coords such that x_source = x - delta x_source</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.MultiLens.MultiLens.full_ray_tracing">
+<code class="descname">full_ray_tracing</code><span class="sig-paren">(</span><em>lensAssembly</em>, <em>z_source</em>, <em>x_array</em>, <em>y_array</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/MultiLens.html#MultiLens.full_ray_tracing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.MultiLens.MultiLens.full_ray_tracing" title="Permalink to this definition">¶</a></dt>
+<dd><p>full ray-tracing routine (eqn 10,11 in Birrer in prep), implemented with equation 12 in a recursive way
+(!assuming flat cosmology!)
+:param object_list: list of sources with specified physical deflection angles (sorted by redshift)
+:param z_source: redshift of the source
+:param x_array: x-coords of the rays
+:param y_array: y-coords of the rays
+:return: deflections delta x_coords, delta y_coords such that x_source = x - delta x_source</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-MultiLens.analytic_lens">
+<span id="multilens-analytic-lens-module"></span><h2>MultiLens.analytic_lens module<a class="headerlink" href="#module-MultiLens.analytic_lens" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="MultiLens.analytic_lens.AnalyticLens">
+<em class="property">class </em><code class="descclassname">MultiLens.analytic_lens.</code><code class="descname">AnalyticLens</code><a class="reference internal" href="_modules/MultiLens/analytic_lens.html#AnalyticLens"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.analytic_lens.AnalyticLens" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>class to compute the analytic terms in Birrer in prep given the lensing objects</p>
+<dl class="method">
+<dt id="MultiLens.analytic_lens.AnalyticLens.shear_background_first_order">
+<code class="descname">shear_background_first_order</code><span class="sig-paren">(</span><em>object_list</em>, <em>z_lens</em>, <em>z_source</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/analytic_lens.html#AnalyticLens.shear_background_first_order"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.analytic_lens.AnalyticLens.shear_background_first_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>computes Gamma^{C} matrix, equation 28 in Birrer in prep,
+which computes the distortion of the light rays between the source and the lens at the source plane
+with the approximation that the Einstein ring is thin and the source small
+:param object_list: list of sources with specified physical deflection angles (sorted by redshift)
+:param z_lens: redshift of the lens (main deflector)
+:param z_source: redshift of the source
+:return: 2x2 matrix</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.analytic_lens.AnalyticLens.shear_background_zero">
+<code class="descname">shear_background_zero</code><span class="sig-paren">(</span><em>object_list</em>, <em>z_lens</em>, <em>z_source</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/analytic_lens.html#AnalyticLens.shear_background_zero"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.analytic_lens.AnalyticLens.shear_background_zero" title="Permalink to this definition">¶</a></dt>
+<dd><p>computes        ilde{Gamma^{C}} matrix, equation 23 in Birrer in prep,
+which computes the distortion of the light rays between the source and the lens at the source plane
+without taking into account the bending of the light rays
+:param object_list: list of sources with specified physical deflection angles (sorted by redshift)
+:param z_lens: redshift of the lens (main deflector)
+:param z_source: redshift of the source
+:return: 2x2 matrix</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.analytic_lens.AnalyticLens.shear_foreground">
+<code class="descname">shear_foreground</code><span class="sig-paren">(</span><em>object_list</em>, <em>z_lens</em>, <em>z_source</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/analytic_lens.html#AnalyticLens.shear_foreground"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.analytic_lens.AnalyticLens.shear_foreground" title="Permalink to this definition">¶</a></dt>
+<dd><p>computes Gamma^{B} matrix, equation 23 in Birrer in prep,
+which computes the distortion of the light rays between the lens and observer at the source plane
+:param object_list: list of sources with specified physical deflection angles (sorted by redshift)
+:param z_lens: redshift of the lens (main deflector)
+:param z_source: redshift of the source
+:return: 2x2 matrix</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.analytic_lens.AnalyticLens.shear_lens">
+<code class="descname">shear_lens</code><span class="sig-paren">(</span><em>object_list</em>, <em>z_lens</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/analytic_lens.html#AnalyticLens.shear_lens"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.analytic_lens.AnalyticLens.shear_lens" title="Permalink to this definition">¶</a></dt>
+<dd><p>computes Gamma^{A} matrix, equation 21 in Birrer in prep
+which computes the distortion of the light rays at the main deflector plane
+:param object_list: list of sources with specified physical deflection angles (sorted by redshift)
+:param z_lens: redshift of the lens (main deflector)
+:return: 2x2 matrix</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-MultiLens.lens_assembly">
+<span id="multilens-lens-assembly-module"></span><h2>MultiLens.lens_assembly module<a class="headerlink" href="#module-MultiLens.lens_assembly" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="MultiLens.lens_assembly.LensAssembly">
+<em class="property">class </em><code class="descclassname">MultiLens.lens_assembly.</code><code class="descname">LensAssembly</code><a class="reference internal" href="_modules/MultiLens/lens_assembly.html#LensAssembly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.lens_assembly.LensAssembly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>class to arrange all the strong and weak lenses along a line of sight</p>
+<dl class="method">
+<dt id="MultiLens.lens_assembly.LensAssembly.add_lens">
+<code class="descname">add_lens</code><span class="sig-paren">(</span><em>lensObject</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/lens_assembly.html#LensAssembly.add_lens"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.lens_assembly.LensAssembly.add_lens" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>lensObject</strong> &#8211; object class of lens_object.py</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.lens_assembly.LensAssembly.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/lens_assembly.html#LensAssembly.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.lens_assembly.LensAssembly.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>remove all the data of the object class
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.lens_assembly.LensAssembly.main_deflector">
+<code class="descname">main_deflector</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/lens_assembly.html#LensAssembly.main_deflector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.lens_assembly.LensAssembly.main_deflector" title="Permalink to this definition">¶</a></dt>
+<dd><p>selects main deflector object
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.lens_assembly.LensAssembly.print_info">
+<code class="descname">print_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/lens_assembly.html#LensAssembly.print_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.lens_assembly.LensAssembly.print_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.lens_assembly.LensAssembly.remove_lens">
+<code class="descname">remove_lens</code><span class="sig-paren">(</span><em>redshift</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/lens_assembly.html#LensAssembly.remove_lens"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.lens_assembly.LensAssembly.remove_lens" title="Permalink to this definition">¶</a></dt>
+<dd><p>removes a lens at a given redshift, if existing
+:param redshift: redshift of removing object
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-MultiLens.lens_object">
+<span id="multilens-lens-object-module"></span><h2>MultiLens.lens_object module<a class="headerlink" href="#module-MultiLens.lens_object" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="MultiLens.lens_object.LensObject">
+<em class="property">class </em><code class="descclassname">MultiLens.lens_object.</code><code class="descname">LensObject</code><span class="sig-paren">(</span><em>redshift</em>, <em>type=u'point_mass'</em>, <em>approximation=u'weak'</em>, <em>main=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/lens_object.html#LensObject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.lens_object.LensObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>class to specify the deflection caused by this object</p>
+<dl class="method">
+<dt id="MultiLens.lens_object.LensObject.add_info">
+<code class="descname">add_info</code><span class="sig-paren">(</span><em>name</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/lens_object.html#LensObject.add_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.lens_object.LensObject.add_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>adds info (i.e. parameters of the lens object
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.lens_object.LensObject.deflection">
+<code class="descname">deflection</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/lens_object.html#LensObject.deflection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.lens_object.LensObject.deflection" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the deflection of the object
+:param x: x-coordinate of the light ray
+:param y: y-coordinate of the light ray
+:return: delta_x, delta_y</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.lens_object.LensObject.distortion">
+<code class="descname">distortion</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/lens_object.html#LensObject.distortion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.lens_object.LensObject.distortion" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the distortion matrix
+:param x: x-coordinate of the light ray
+:param y: y-coordinate of the light ray
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.lens_object.LensObject.potential">
+<code class="descname">potential</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/lens_object.html#LensObject.potential"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.lens_object.LensObject.potential" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the lensing potential of the object
+:param x: x-coordinate of the light ray
+:param y: y-coordinate of the light ray
+:return: potential</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.lens_object.LensObject.print_info">
+<code class="descname">print_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/lens_object.html#LensObject.print_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.lens_object.LensObject.print_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>print all the information about the lens
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-MultiLens.numerics">
+<span id="multilens-numerics-module"></span><h2>MultiLens.numerics module<a class="headerlink" href="#module-MultiLens.numerics" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="MultiLens.numerics.Numerics">
+<em class="property">class </em><code class="descclassname">MultiLens.numerics.</code><code class="descname">Numerics</code><a class="reference internal" href="_modules/MultiLens/numerics.html#Numerics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.numerics.Numerics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>class to compute numerical differentials of the deflection angle</p>
+<dl class="method">
+<dt id="MultiLens.numerics.Numerics.differentials">
+<code class="descname">differentials</code><span class="sig-paren">(</span><em>beta_x</em>, <em>beta_y</em>, <em>theta_x</em>, <em>theta_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/numerics.html#Numerics.differentials"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.numerics.Numerics.differentials" title="Permalink to this definition">¶</a></dt>
+<dd><p>computes the differentials f_xx, f_yy, f_xy from f_x and f_y
+:param beta_x: source position in x-coord
+:param beta_y: source position in y-coord
+:param theta_x: image position in x-coord
+:param theta_y: image position in y-coord
+:return: kappa</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.numerics.Numerics.gamma">
+<code class="descname">gamma</code><span class="sig-paren">(</span><em>beta_x</em>, <em>beta_y</em>, <em>theta_x</em>, <em>theta_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/numerics.html#Numerics.gamma"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.numerics.Numerics.gamma" title="Permalink to this definition">¶</a></dt>
+<dd><p>computes the shear
+:param beta_x: source position in x-coord
+:param beta_y: source position in y-coord
+:param theta_x: image position in x-coord
+:param theta_y: image position in y-coord
+:return: gamma1, gamma2</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.numerics.Numerics.kappa">
+<code class="descname">kappa</code><span class="sig-paren">(</span><em>beta_x</em>, <em>beta_y</em>, <em>theta_x</em>, <em>theta_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/numerics.html#Numerics.kappa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.numerics.Numerics.kappa" title="Permalink to this definition">¶</a></dt>
+<dd><p>computes the convergence
+:param beta_x: source position in x-coord
+:param beta_y: source position in y-coord
+:param theta_x: image position in x-coord
+:param theta_y: image position in y-coord
+:return: kappa</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.numerics.Numerics.magnification">
+<code class="descname">magnification</code><span class="sig-paren">(</span><em>beta_x</em>, <em>beta_y</em>, <em>theta_x</em>, <em>theta_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/numerics.html#Numerics.magnification"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.numerics.Numerics.magnification" title="Permalink to this definition">¶</a></dt>
+<dd><p>computes the magnification
+:param beta_x: source position in x-coord
+:param beta_y: source position in y-coord
+:param theta_x: image position in x-coord
+:param theta_y: image position in y-coord
+:return: potential</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MultiLens.numerics.Numerics.potential">
+<code class="descname">potential</code><span class="sig-paren">(</span><em>beta_x</em>, <em>beta_y</em>, <em>theta_x</em>, <em>theta_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MultiLens/numerics.html#Numerics.potential"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MultiLens.numerics.Numerics.potential" title="Permalink to this definition">¶</a></dt>
+<dd><p>computes the potential (modulo constant)
+:param beta_x: source position in x-coord
+:param beta_y: source position in y-coord
+:param theta_x: image position in x-coord
+:param theta_y: image position in y-coord
+:return: potential</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-MultiLens">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-MultiLens" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">MultiLens package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-MultiLens.MultiLens">MultiLens.MultiLens module</a></li>
+<li><a class="reference internal" href="#module-MultiLens.analytic_lens">MultiLens.analytic_lens module</a></li>
+<li><a class="reference internal" href="#module-MultiLens.lens_assembly">MultiLens.lens_assembly module</a></li>
+<li><a class="reference internal" href="#module-MultiLens.lens_object">MultiLens.lens_object module</a></li>
+<li><a class="reference internal" href="#module-MultiLens.numerics">MultiLens.numerics module</a></li>
+<li><a class="reference internal" href="#module-MultiLens">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="usage.html"
+                        title="previous chapter">Usage</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="MultiLens.Cosmo.html"
+                        title="next chapter">MultiLens.Cosmo package</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/MultiLens.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="MultiLens.Cosmo.html" title="MultiLens.Cosmo package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">multiLens 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, ETH Zurich, Institute for Astronomy.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

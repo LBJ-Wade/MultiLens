@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MultiLens.numerics &mdash; multiLens 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="multiLens 0.1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">multiLens 0.1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for MultiLens.numerics</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s">&#39;sibirrer&#39;</span>
+
+
+<span class="kn">import</span> <span class="nn">MultiLens.Utils.utils</span> <span class="kn">as</span> <span class="nn">util</span>
+
+<div class="viewcode-block" id="Numerics"><a class="viewcode-back" href="../../MultiLens.html#MultiLens.numerics.Numerics">[docs]</a><span class="k">class</span> <span class="nc">Numerics</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    class to compute numerical differentials of the deflection angle</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="Numerics.kappa"><a class="viewcode-back" href="../../MultiLens.html#MultiLens.numerics.Numerics.kappa">[docs]</a>    <span class="k">def</span> <span class="nf">kappa</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beta_x</span><span class="p">,</span> <span class="n">beta_y</span><span class="p">,</span> <span class="n">theta_x</span><span class="p">,</span> <span class="n">theta_y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        computes the convergence</span>
+<span class="sd">        :param beta_x: source position in x-coord</span>
+<span class="sd">        :param beta_y: source position in y-coord</span>
+<span class="sd">        :param theta_x: image position in x-coord</span>
+<span class="sd">        :param theta_y: image position in y-coord</span>
+<span class="sd">        :return: kappa</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">f_xx</span><span class="p">,</span> <span class="n">f_xy</span><span class="p">,</span> <span class="n">f_yx</span><span class="p">,</span> <span class="n">f_yy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">differentials</span><span class="p">(</span><span class="n">beta_x</span><span class="p">,</span> <span class="n">beta_y</span><span class="p">,</span> <span class="n">theta_x</span><span class="p">,</span> <span class="n">theta_y</span><span class="p">)</span>
+        <span class="n">kappa</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">f_xx</span> <span class="o">+</span> <span class="n">f_yy</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">kappa</span>
+</div>
+<div class="viewcode-block" id="Numerics.gamma"><a class="viewcode-back" href="../../MultiLens.html#MultiLens.numerics.Numerics.gamma">[docs]</a>    <span class="k">def</span> <span class="nf">gamma</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beta_x</span><span class="p">,</span> <span class="n">beta_y</span><span class="p">,</span> <span class="n">theta_x</span><span class="p">,</span> <span class="n">theta_y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        computes the shear</span>
+<span class="sd">        :param beta_x: source position in x-coord</span>
+<span class="sd">        :param beta_y: source position in y-coord</span>
+<span class="sd">        :param theta_x: image position in x-coord</span>
+<span class="sd">        :param theta_y: image position in y-coord</span>
+<span class="sd">        :return: gamma1, gamma2</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">f_xx</span><span class="p">,</span> <span class="n">f_xy</span><span class="p">,</span> <span class="n">f_yx</span><span class="p">,</span> <span class="n">f_yy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">differentials</span><span class="p">(</span><span class="n">beta_x</span><span class="p">,</span> <span class="n">beta_y</span><span class="p">,</span> <span class="n">theta_x</span><span class="p">,</span> <span class="n">theta_y</span><span class="p">)</span>
+        <span class="n">gamma1</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">f_xx</span> <span class="o">-</span> <span class="n">f_yy</span><span class="p">)</span>
+        <span class="n">gamma2</span> <span class="o">=</span> <span class="n">f_xy</span>
+        <span class="k">return</span> <span class="n">gamma1</span><span class="p">,</span> <span class="n">gamma2</span>
+</div>
+<div class="viewcode-block" id="Numerics.magnification"><a class="viewcode-back" href="../../MultiLens.html#MultiLens.numerics.Numerics.magnification">[docs]</a>    <span class="k">def</span> <span class="nf">magnification</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beta_x</span><span class="p">,</span> <span class="n">beta_y</span><span class="p">,</span> <span class="n">theta_x</span><span class="p">,</span> <span class="n">theta_y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        computes the magnification</span>
+<span class="sd">        :param beta_x: source position in x-coord</span>
+<span class="sd">        :param beta_y: source position in y-coord</span>
+<span class="sd">        :param theta_x: image position in x-coord</span>
+<span class="sd">        :param theta_y: image position in y-coord</span>
+<span class="sd">        :return: potential</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">f_xx</span><span class="p">,</span> <span class="n">f_xy</span><span class="p">,</span> <span class="n">f_yx</span><span class="p">,</span> <span class="n">f_yy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">differentials</span><span class="p">(</span><span class="n">beta_x</span><span class="p">,</span> <span class="n">beta_y</span><span class="p">,</span> <span class="n">theta_x</span><span class="p">,</span> <span class="n">theta_y</span><span class="p">)</span>
+        <span class="n">det_A</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">f_xx</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">f_yy</span><span class="p">)</span> <span class="o">-</span> <span class="n">f_xy</span><span class="o">*</span><span class="n">f_yx</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="n">det_A</span>
+</div>
+<div class="viewcode-block" id="Numerics.potential"><a class="viewcode-back" href="../../MultiLens.html#MultiLens.numerics.Numerics.potential">[docs]</a>    <span class="k">def</span> <span class="nf">potential</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beta_x</span><span class="p">,</span> <span class="n">beta_y</span><span class="p">,</span> <span class="n">theta_x</span><span class="p">,</span> <span class="n">theta_y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        computes the potential (modulo constant)</span>
+<span class="sd">        :param beta_x: source position in x-coord</span>
+<span class="sd">        :param beta_y: source position in y-coord</span>
+<span class="sd">        :param theta_x: image position in x-coord</span>
+<span class="sd">        :param theta_y: image position in y-coord</span>
+<span class="sd">        :return: potential</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="Numerics.differentials"><a class="viewcode-back" href="../../MultiLens.html#MultiLens.numerics.Numerics.differentials">[docs]</a>    <span class="k">def</span> <span class="nf">differentials</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beta_x</span><span class="p">,</span> <span class="n">beta_y</span><span class="p">,</span> <span class="n">theta_x</span><span class="p">,</span> <span class="n">theta_y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        computes the differentials f_xx, f_yy, f_xy from f_x and f_y</span>
+<span class="sd">        :param beta_x: source position in x-coord</span>
+<span class="sd">        :param beta_y: source position in y-coord</span>
+<span class="sd">        :param theta_x: image position in x-coord</span>
+<span class="sd">        :param theta_y: image position in y-coord</span>
+<span class="sd">        :return: kappa</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">alpha_x</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">array2image</span><span class="p">(</span><span class="n">beta_x</span> <span class="o">-</span> <span class="n">theta_x</span><span class="p">)</span>
+        <span class="n">alpha_y</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">array2image</span><span class="p">(</span><span class="n">beta_y</span> <span class="o">-</span> <span class="n">theta_y</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">array2image</span><span class="p">(</span><span class="n">theta_x</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">array2image</span><span class="p">(</span><span class="n">theta_y</span><span class="p">)</span>
+        <span class="n">num_x</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">num_y</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">delta</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">dalpha_xx</span> <span class="o">=</span> <span class="n">alpha_x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">num_y</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="n">num_x</span><span class="p">]</span> <span class="o">-</span> <span class="n">alpha_x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">num_y</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="n">num_x</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">dalpha_yx</span> <span class="o">=</span> <span class="n">alpha_y</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">num_y</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="n">num_x</span><span class="p">]</span> <span class="o">-</span> <span class="n">alpha_y</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">num_y</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="n">num_x</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">dalpha_xy</span> <span class="o">=</span> <span class="n">alpha_x</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="n">num_y</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="n">num_x</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">alpha_x</span><span class="p">[:</span><span class="n">num_y</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="n">num_x</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">dalpha_yy</span> <span class="o">=</span> <span class="n">alpha_y</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="n">num_y</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="n">num_x</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">alpha_y</span><span class="p">[:</span><span class="n">num_y</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="n">num_x</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">f_xx</span> <span class="o">=</span> <span class="n">dalpha_xx</span><span class="o">/</span><span class="n">delta</span>
+        <span class="n">f_yy</span> <span class="o">=</span> <span class="n">dalpha_yy</span><span class="o">/</span><span class="n">delta</span>
+        <span class="n">f_xy</span> <span class="o">=</span> <span class="n">dalpha_xy</span><span class="o">/</span><span class="n">delta</span>
+        <span class="n">f_yx</span> <span class="o">=</span> <span class="n">dalpha_yx</span><span class="o">/</span><span class="n">delta</span>
+        <span class="k">return</span> <span class="n">f_xx</span><span class="p">,</span> <span class="n">f_xy</span><span class="p">,</span> <span class="n">f_yx</span><span class="p">,</span> <span class="n">f_yy</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">multiLens 0.1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, ETH Zurich, Institute for Astronomy.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+Metadata-Version: 1.1
+Name: MultiLens
+Version: 0.1.0
+Summary: This software aims to model multi plane lensing in a ray-tracing approach.
+Home-page: http://www.astro.ethz.ch/refregier/research/index
+Author: Simon Birrer
+Author-email: simon.birrer@phys.ethz.ch
+License: Proprietary
+Description: =============================
+        multiLens
+        =============================
+        
+        This software aims to model multi plane lensing in a ray-tracing approach.
+        
+        
+        Features
+        --------
+        
+        * TODO
+        
+        
+        
+        Documentation
+        -------------
+        
+        The full documentation can be generated with Sphinx
+        
+        
+        
+        History
+        -------
+        
+        0.1.0 (2016-01-01)
+        ++++++++++++++++++
+        
+        * First release on PyPI.
+Keywords: MultiLens
+Platform: UNKNOWN
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Developers
+Classifier: License :: Other/Proprietary License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.6
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.3
