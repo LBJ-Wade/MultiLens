@@ -8,6 +8,7 @@ from __future__ import print_function, division, absolute_import, unicode_litera
 
 # External modules
 import numpy as np
+import copy
 
 # MultiLens imports
 from MultiLens.analytic_lens import AnalyticLens
@@ -35,8 +36,8 @@ class MultiLens(object):
         if observer_frame:
             self._full_ray_tracing_observer(lensAssembly)
         object_list = lensAssembly.object_array
-        alpha_x_tot = x_array.copy()
-        alpha_y_tot = y_array.copy()
+        alpha_x_tot = copy.deepcopy(x_array)
+        alpha_y_tot = copy.deepcopy(y_array)
         x_k = np.zeros_like(alpha_x_tot)
         y_k = np.zeros_like(alpha_x_tot)
         z_last = 0
@@ -206,8 +207,8 @@ class MultiLens(object):
         """
         lensAssembly.reset_observer_frame()
         object_list = lensAssembly.object_array
-        beta_sx = x_array.copy()
-        beta_sy = y_array.copy()
+        beta_sx = copy.deepcopy(y_array)
+        beta_sy = copy.deepcopy(x_array)
         Ds = self.cosmo.D_xy(0, z_source)
         for lensObject in object_list:
             z = lensObject.redshift

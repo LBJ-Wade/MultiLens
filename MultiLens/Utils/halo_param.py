@@ -34,18 +34,18 @@ class HaloParam(object):
 
     def r200_M(self, M, z):
         """
-        computes the radius R_200 of a halo of mass M in comoving distances
+        computes the radius R_200 of a halo of mass M in physical distances
 
         :param M: halo mass in M_sun/h
         :type M: float or numpy array
-        :return: radius R_200 in comoving Mpc/h
+        :return: radius R_200 in physical Mpc/h
         """
         return (3*M/(4*np.pi*self.rhoc(z)*200))**(1./3.)
 
     def rho_s(self, c, z):
         """
-        computes density normalization as a functio of concentration parameter
-        :return: density normalization in h^2/Mpc^3 (comoving)
+        computes density normalization as a function of concentration parameter
+        :return: density normalization in h^2/Mpc^3 (physical)
         """
         return 200./3*self.rhoc(z)*c**3/(np.log(1+c)-c/(1+c))
 
@@ -69,6 +69,10 @@ class HaloParam(object):
     def profileMain(self, M, z):
         """
         returns all needed parameter to draw the profile of the main halo
+        r200 in physical Mpc/h
+        rho_s in  h^2/Mpc^3 (physical)
+        Rs in Mpc/h physical
+        c unit less
         """
         c = self.c_M_z(M, z)
         r200 = self.r200_M(M, z)

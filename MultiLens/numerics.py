@@ -2,7 +2,7 @@ from __future__ import print_function, division, absolute_import, unicode_litera
 __author__ = 'sibirrer'
 
 
-import MultiLens.Utils.utils as util
+import astrofunc.util as util
 
 class Numerics(object):
     """
