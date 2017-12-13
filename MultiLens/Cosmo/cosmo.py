@@ -1,24 +1,21 @@
 from __future__ import print_function, division, absolute_import, unicode_literals
 __author__ = 'sibirrer'
 
-
-import PyCosmo
-
+from astropy.cosmology import FlatLambdaCDM
 import MultiLens.Utils.constants as const
+
 
 class CosmoProp(object):
     """
     class to compute cosmological distances
     """
-    def __init__(self, param_file=None):
+    def __init__(self, H0=70, Om0=0.3, Ob0=0.05):
         """
 
         :param param_file: parameter file for pycosmo
         :return:
         """
-        if param_file == None:
-            param_file = "MultiLens.Cosmo.pycosmo_config_planck2013"
-        self.cosmo = PyCosmo.Cosmo(param_file)
+        self.cosmo = FlatLambdaCDM(H0=H0, Om0=Om0, Ob0=Ob0)
 
     def a_z(self, z):
         """
@@ -28,25 +25,24 @@ class CosmoProp(object):
 
     def D_xy(self, z_observer, z_source):
         """
-        angular diamter distance
+        angular diamter distance in units of Mpc
         :param z_observer: observer
         :param z_source: source
         :return:
         """
         a_S = self.a_z(z_source)
-        a_O = self.a_z(z_observer)
-        return (self.cosmo.background.dist_trans_a(a_S)[0] - self.cosmo.background.dist_trans_a(a_O)[0])*a_S
+        D_xy = (self.cosmo.comoving_transverse_distance(z_source) - self.cosmo.comoving_transverse_distance(z_observer))*a_S
+        return D_xy.value
 
     def T_xy(self, z_observer, z_source):
         """
-        transverse comoving distance
+        transverse comoving distance in units of Mpc
         :param z_observer: observer
         :param z_source: source
         :return:
         """
-        a_S = self.a_z(z_source)
-        a_O = self.a_z(z_observer)
-        return (self.cosmo.background.dist_trans_a(a_S)[0] - self.cosmo.background.dist_trans_a(a_O)[0])
+        T_xy = self.cosmo.comoving_transverse_distance(z_source) - self.cosmo.comoving_transverse_distance(z_observer)
+        return T_xy.value
 
     def arcsec2phys(self, arcsec, z):
         """
